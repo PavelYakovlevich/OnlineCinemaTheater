@@ -1,0 +1,68 @@
+<div class="participant-container w-full">
+    <div class="participant w-full h-full">
+        <div class="participant-photo-container">
+            <app-picture-container
+                [canDelete]="photo"
+                [canModify]="account.role === 'Moderator'"
+                [requestInProgress]="pictureRequestIsInProgress"
+                (onDeleteFile)="onDeleteFile()"
+                (onFileSelected)="onFileSelected($event)"
+                [pictureUrl]="photo ?? 'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg'"
+            >
+            </app-picture-container>
+        </div>
+        <div class="participant-info">
+            <div class="participant-info-header">
+                <span class="participant-fullname">{{ getFullName() | titlecase }} {{ getAge() }}</span>
+
+                <div *ngIf='accountCanModify()' class="media-actions">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)='onChangeParticipantBtnWasClicked()'>
+                            <mat-icon>create</mat-icon>
+                            <span>Modify</span>
+                        </button>
+                        <button mat-menu-item (click)='onDeleteParticipantMenuItemWasClicked()'>
+                            <mat-icon class='delete-icon'>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+            <div class="participant-general-info">
+                <div class="participant-info-row">
+                    Country
+                    <span *ngIf="participant?.country && countryInfo?.name; else valueNotSpecified" class="flex items-center justify-center">
+                        {{ countryInfo?.name }} 
+                        <div *ngIf='countryInfo?.flag' class="country-flag flex justify-center items-center">
+                            <img class="w-full h-full" [src]="countryInfo!.flag">
+                        </div>
+                    </span>
+
+                    <ng-template #valueNotSpecified>
+                        <span>Not specified</span>
+                    </ng-template>
+                </div>
+                <div class="participant-info-row">
+                    Date of birth
+                    <span *ngIf="participant?.birthday; else valueNotSpecified">{{ participant!.birthday | date:'longDate' }}</span>
+
+                    <ng-template #valueNotSpecified>
+                        <span>Not specified</span>
+                    </ng-template>
+                </div>
+
+                <div class="participant-info-row">
+                    Career
+                    <span>{{ getParticipantRoleString() }}</span>
+                </div>
+            </div>
+
+            <div class="participant-description">
+                <span>{{ participant!.description }}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div [ngClass]="{'picture-container': true, 'picture-container-modifiable': canModify}"
+    (mouseenter)="onPictureFocusEvent()"
+    (mouseleave)="onPictureFocusEvent()"
+>
+    <div *ngIf="requestInProgress; else pictureWasLoaded" class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+    <ng-template #pictureWasLoaded>
+        <div *ngIf='canModify && pictureIsFocused' class="picture-actions-container">
+            <button mat-button class="update-btn" 
+                (click)="onUploadFileBtnWasClicked()"
+                [disabled]="requestInProgress">
+                Upload
+            </button>
+            <button *ngIf='canDelete' mat-button class="action-btn" 
+                (click)="onDeletePictureBtnWasClicked()"
+                [disabled]="requestInProgress">
+                Delete
+            </button>
+            <input id='uploadPicture' type="file" style="display:none" (change)="onPictureWasSelected($event)">
+        </div>
+        
+        <img
+            *ngIf="!requestInProgress"
+            class="picture w-full" 
+            [src]="pictureUrl">
+    </ng-template>
+</div>

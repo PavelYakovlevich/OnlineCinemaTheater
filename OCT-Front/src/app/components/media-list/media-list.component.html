@@ -1,0 +1,50 @@
+<div class="media-list-container h-full">
+    <mat-drawer-container class="media-list flex h-full w-full">
+        <mat-drawer #drawer class="media-filters-side-bar-container h-full" mode="side">
+            <app-media-filter 
+                class="w-full h-full"
+                (onFiltersChanged)="onFiltersWereChanged($event)"
+            ></app-media-filter>
+        </mat-drawer>
+        <div class="media-list-content-container h-full">
+            <button *ngIf="!drawer.opened" class="open-side-filters-bar-btn" type="button" mat-button (click)="drawer.open()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <div class="media-list-content w-full h-full" (click)="drawer.close()">
+                <div class="search-criterias-container w-full">
+                    <span class="text-white">{{ getSearchCriteriasString() | titlecase }}</span>
+                </div>
+
+                <div class="media-cards w-full">
+                    <app-media-card
+                        *ngFor="let media of medias" 
+                        [media]="media"
+                        class="media-card"
+                    ></app-media-card>
+                </div>
+
+                <div class="empty-search-result-container w-full h-full flex items-center justify-center" *ngIf="medias.length === 0 && !mediasAreLoading">
+                    <h1 class="empty-search-result-header">
+                        Oopsss. empty search result
+                    </h1>
+                </div>
+        
+                <div class="load-errors-container w-full" *ngIf="errorService.error$ | async as errorModel">
+                    <span class="w-full">{{ errorModel.error?.Detail ? errorModel.error!.Detail : errorModel.error!.Title }}</span>
+                </div>
+        
+                <div *ngIf="mediasAreLoading && !(errorService.error$ | async)" class="flex justify-center items-center w-full">
+                    <mat-spinner></mat-spinner>
+                </div>
+            </div>
+
+            <div class="load-more-container" *ngIf='canLoadMore()'>
+                <a class="load-more-link" (click)="onLoadMoreLinkWasClicked()">Load more</a>
+            </div>
+
+            <button *ngIf="!scrolledOnTop" class="scroll-on-top-btn" type="button" mat-button (click)="onScrollOnTopBtrWasClicked()">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+        </div>
+    </mat-drawer-container>
+</div>

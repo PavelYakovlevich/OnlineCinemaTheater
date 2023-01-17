@@ -1,0 +1,77 @@
+<div class="interact-dialog-container">
+    <form [formGroup]="participantFormGroup">
+        <div class="about-actor">
+            <div class="about-actor-header">
+                <mat-form-field class="about-actor-item">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName='name'/>
+                    <mat-error *ngIf="controlIsInvalid('name')">{{ getErrorMessage('name') }}</mat-error>
+                </mat-form-field>
+        
+                <mat-form-field class="about-actor-item">
+                    <mat-label>Surname</mat-label>
+                    <input matInput formControlName='surname'/>
+                    <mat-error *ngIf="controlIsInvalid('surname')">{{ getErrorMessage('surname') }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="info-row">  
+                <span>Birthday</span> 
+                <mat-form-field>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput [matDatepicker]="picker" formControlName='birthday'>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="controlIsInvalid('birthday')">{{ getErrorMessage('birthday') }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="info-row">
+                <span>Country</span> 
+                <app-country-select 
+                    (onCountryWasSelected)="onCountryWasSelected($event)"
+                    [country]="participant.country"
+                ></app-country-select>
+            </div>
+
+            <div class="info-row">
+                <span>Career</span>
+                <mat-form-field>
+                    <mat-select formControlName='career' [value]="participant.role">
+                        <mat-option 
+                            *ngFor="let role of getParticipantRoles()" 
+                            [value]="role"
+                        >
+                            <span>{{ getParticipantRoleString(role) }}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="participant-description">
+                <textarea matInput
+                    matInput formControlName='description'
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1">
+                </textarea>
+                <mat-error *ngIf="controlIsInvalid('description')">{{ getErrorMessage('description') }}</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div mat-dialog-actions>
+        <mat-progress-bar class='mb-5' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar>
+        <div class="actions-btns-container">
+            <button
+                [disabled]="!allControlsAreValid() || requestInProgress"
+                (click)='onSaveBtnWasClicked()'
+                mat-button class="action-btn">
+                {{ isOpenedInModificationMode ? 'Save' : 'Create' }}
+            </button>
+            <button mat-button mat-dialog-close class="close-btn"
+                [disabled]="requestInProgress">
+                Close
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="auth-form-page flex min-h-screen flex-col justify-center w-full items-center">
+  <div class="auth-form-container">
+    <div class="auth-form">
+      <mat-card class="mx-auto w-md flex items-center rounded-lg auth-form-container" [formGroup]="registrationForm">
+        <app-error-alert class="mb-3 mx-auto w-md"></app-error-alert>
+
+        <div class="title-container flex item-center">
+          <h1>Registrate</h1>
+        </div>
+  
+        <mat-form-field appearance="fill" class="w-full mb-3">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="email@example.com"  [formControl]="emailControl" aria-required="false">
+            <mat-error *ngIf="emailControl.invalid">{{ getErrorMessage(emailControl) }}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" class="w-full mb-3">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl] = "passwordControl">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="passwordControl.invalid">{{ getErrorMessage(passwordControl) }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full mb-3">
+          <mat-label>Repeat your password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl] = "repeatPasswordControl">
+          <mat-error *ngIf="repeatPasswordControl.invalid">{{ getErrorMessage(repeatPasswordControl) }}</mat-error>
+        </mat-form-field>
+  
+        <div class="reg-btn-container">
+          <button 
+            mat-flat-button color="primary" 
+            (click)="onRegisterBtnWasClicked()" 
+            [disabled]="!allInformationIsValid()"
+            class="w-full reg-btn">
+            Registrate
+          </button>
+        </div>
+
+        <div class="other-links-container mt-6 flex">
+          <span>Already have an account?</span>
+          <a routerLink="/login" class="ml-1 link-text">Log in</a>
+        </div>
+
+        <mat-progress-bar class='w-100 h-100 mt-5' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar>
+      </mat-card>
+    </div>
+  </div>
+</div>

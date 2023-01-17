@@ -1,0 +1,11 @@
+<div *ngIf='errorModel' class="error-box flex items-center bg-red-500 text-white">
+    <div class="error-details flex items-center w-50">
+        <span>{{ errorModel.error?.Detail ? errorModel.error!.Detail : errorModel.error?.Title }}</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="close-error-btn flex items-center justify-center">
+        <button mat-icon-button class="text-white w-full h-full" (click)="onCloseErrorAlertBtnClicked()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</div>

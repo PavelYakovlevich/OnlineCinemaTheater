@@ -1,0 +1,17 @@
+<div class="media-card-container flex flex-col items-center justify-center h-full">
+    <a  class="w-full h-full"
+        [routerLink]="['/media', media.id]"
+        [state]="{ media: { media,  picture} }"
+    >
+        <div #image_loaded class="media-picture-container w-full h-full">
+            <div *ngIf="isPictureLoading" class="flex items-center justify-center h-full">
+                <mat-spinner class="picture-loading-spinner"></mat-spinner>
+            </div>
+            <img 
+                [src]="picture ?? 'https://media.istockphoto.com/vectors/error-page-or-file-not-found-icon-vector-id924949200?k=20&m=924949200&s=170667a&w=0&h=-g01ME1udkojlHCZeoa1UnMkWZZppdIFHEKk6wMvxrs='"
+                alt="Media picture"
+                *ngIf="!isPictureLoading"
+                class="media-picture">
+        </div>
+    </a>
+</div>

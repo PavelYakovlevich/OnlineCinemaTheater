@@ -1,0 +1,129 @@
+.media-card {
+    width: 340px;
+    height: 400px;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.media-list-content {
+    padding: 60px 150px 0 150px;
+    padding-left: 150px;
+    padding-right: 150px;
+    min-height: calc(100vh - 6rem);
+}
+
+.media-filters-side-bar {
+    width: 250px;
+    max-height: 100%;
+    min-height: 100%;
+    padding: 20px;
+}
+
+.media-list-control-btns-container {
+    position: absolute;
+}
+
+.open-side-filters-bar-btn {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+}
+
+.scroll-on-top-btn {
+    position: fixed;
+    right: 55px;
+    bottom: 5%;
+}
+
+.open-side-filters-bar-btn,.scroll-on-top-btn {
+    .mat-icon {
+        height: 40px;
+        width: 40px;
+        color: white;
+        background-color: #e50914;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #e50914 !important
+}
+
+.mat-expansion-panel, .media-filters-side-bar-container{
+    padding: 20px;
+    background: rgba(141, 141, 141, 0.164);
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color:rgba(100, 98, 98, 0.8) !important;
+    font-size: medium;
+}
+
+::ng-deep.mat-form-field {
+    .mat-input-element {
+        color: #e9e7e7 !important;
+    }
+    .mat-form-field-label {
+        color: #8c8c8c;
+    }
+    .mat-form-field-underline {
+        background-color: #8c8c8c;
+    }
+    .mat-form-field-ripple {
+        background-color: #8c8c8c;
+    }
+    .mat-form-field-required-marker {
+        color: #8c8c8c;
+    }
+}
+
+::ng-deep .mat-form-field.mat-focused {
+    .mat-form-field-label {
+        color: #e9e7e7 !important;
+    }
+    .mat-form-field-ripple {
+        background-color: #8c8c8c;
+    }
+    .mat-form-field-required-marker {
+        color: #8c8c8c;
+    }
+    .mat-input-element {
+        color: #8c8c8c;
+    }
+}
+
+.empty-search-result-header {
+    color: #e5e7eb;
+    font-size: 40px;
+}
+
+.load-errors-container {
+    color: #e50914 !important;
+    font-size: 40px;
+}
+
+.search-criterias-container {
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+    border-bottom: 2px solid white;
+    margin-bottom: 30px;
+    height: 100px;
+}
+
+.media-cards {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.media-list {
+    background-color: black;
+}
+
+.load-more-container {
+    padding: 10px;
+}

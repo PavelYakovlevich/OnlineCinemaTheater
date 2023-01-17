@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\BlobStorage\BlobStorage.csproj" />
+    <ProjectReference Include="..\Media.Contract\Media.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

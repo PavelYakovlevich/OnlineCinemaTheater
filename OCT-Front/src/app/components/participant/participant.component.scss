@@ -1,0 +1,76 @@
+.participant-container {
+    min-height: calc(100vh - 6rem);
+    padding: 50px 200px 0 200px;
+}
+
+.participant {
+    display: flex;
+    justify-content: center;
+}
+
+.participant-info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    font-size: 30px;
+    color: white;
+}
+
+.participant-general-info {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.participant-fullname {
+    font-size: 40px;
+}
+
+.participant-photo {
+    width: 600px;
+    max-height: 900px;
+    border-radius: 10px;
+}
+
+.participant-info-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid #424242;
+}
+
+.participant-description {
+    font-size: 25px;
+    margin-top: 50px;
+    align-content: flex-end;
+}
+
+.country-flag {
+    width: 30px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+::ng-deep .picture-container {
+    min-height: 600px !important;
+    min-width: 450px !important;
+
+    .picture {
+        border-radius: 10px;
+        height: 100%;
+    }
+}
+
+.participant-photo-container {
+    min-width: 450px;
+}
+
+.participant-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}

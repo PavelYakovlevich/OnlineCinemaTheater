@@ -1,0 +1,81 @@
+.user-photo-container {
+    min-width: 450px !important;
+    max-width: 600px !important;
+}
+
+.user {
+    display: flex;
+    padding: 0 200px 0 200px;
+}
+
+.user-info {
+    padding: 0 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    .user-fullname {
+        font-size: 30px;
+    }
+
+    span {
+        color: white;
+        font-size: 20px;
+    }
+}
+
+.user-description, .user-general-info {
+    padding: 20px 0 20px 0;
+}
+
+::ng-deep .picture-container {
+    min-height: 600px !important;
+    min-width: 450px !important;
+
+    .picture {
+        border-radius: 10px;
+        height: 100%;
+    }
+}
+
+.user-setup-container {
+    .mat-stepper-horizontal {
+        min-width: 300px;
+        min-height: 300px;
+    }
+
+    .mat-horizontal-stepper-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    .stepper-content {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.stepper-btn {
+    width: 100%;
+}
+
+.stepper-btns-container {
+    padding: 30px 0 10px 0;
+    display: flex;
+}
+
+.stepper-content-container {
+    padding: 20px 0 20px 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.user-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white !important;
+}

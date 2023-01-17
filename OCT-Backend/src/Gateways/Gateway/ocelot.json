@@ -1,0 +1,220 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/auth",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ],
+      "DownstreamPathTemplate": "/api/auth",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7236
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/{action}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/auth/{action}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7236
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/comments",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/comments",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7125
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/comments/{commentId}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7125
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7215
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/serias/{seriaNumber}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/serias/{seriaNumber}",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7215
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/content",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/content",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7215
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/trailer",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/trailer",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7215
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/participants",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants/{id}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/participants/{id}",
+      "UpstreamHttpMethod": [ "PUT", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants/{id}/photo",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/participants/{id}/photo",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/media-infos",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos/{id}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/media-infos/{id}",
+      "UpstreamHttpMethod": [ "DELETE", "GET", "PATCH" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos/{id}/picture",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/media-infos/{id}/picture",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/genres",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/genres",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/genres/{id}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/genres/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7080
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/users/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}/{everything}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/users/{id}/{everything}",
+      "UpstreamHttpMethod": [ "POST", "DELETE", "GET" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<div class="page-container w-full h-full">
+    <div *ngIf='setupIsRequired(); else userFinishedSetup' class="user-setup-container">
+        <mat-stepper #stepper>
+            <mat-step *ngIf='initialSetup'>
+                <ng-template matStepLabel>Begin setup of account</ng-template>
+                <div class="stepper-content-container">
+                    <div class="stepper-content">
+                        <h1>You need to enter some credentials to start using all functionality.</h1>
+                    </div>
+                    <div class='stepper-btns-container'>
+                        <button class='action-btn stepper-btn' mat-button matStepperNext>Start</button>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="creadentialsFormGroup" errorMessage="All credentials are required.">
+                <form [formGroup]="creadentialsFormGroup">
+                    <ng-template matStepLabel>Fill out your name and last name</ng-template>
+                    <div class="stepper-content">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" formControlName="name">
+                            <mat-error>{{ getErrorMessage(creadentialsFormGroup, "name") }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Last name</mat-label>
+                            <input matInput placeholder="Last name" formControlName="lastName">
+                            <mat-error>{{ getErrorMessage(creadentialsFormGroup, "lastName") }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description">
+                            </textarea>
+                        </mat-form-field>
+                        <div class='stepper-btns-container'>
+                            <button *ngIf='initialSetup' class='close-btn stepper-btn' mat-button matStepperPrevious>Back</button>
+                            <button class='action-btn stepper-btn' mat-button matStepperNext>Next</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="birthdayFormGroup" errorMessage="Birthday is required.">
+                <form [formGroup]="birthdayFormGroup">
+                    <ng-template matStepLabel>Fill out your birthday</ng-template>
+                    <mat-form-field>
+                        <mat-label>Birthday</mat-label> 
+                        <input matInput [matDatepicker]="picker" formControlName='birthday'>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>{{ getErrorMessage(birthdayFormGroup, "birthday") }}</mat-error>
+                    </mat-form-field>
+                    <div class="stepper-btns-container">
+                        <button class='close-btn stepper-btn' mat-button matStepperPrevious>Back</button>
+                        <button [disabled]='!userCanSave() || requestInProgres' 
+                            class="action-btn stepper-btn" 
+                            mat-button
+                            (click)="onSaveUserAccountBtnWasClicked()"
+                        >
+                            Save
+                        </button>
+                    </div>
+
+                    <mat-progress-bar class='mb-5' *ngIf='requestInProgres' mode="indeterminate"></mat-progress-bar>
+                </form>
+            </mat-step>
+          </mat-stepper>
+    </div>
+    <ng-template #userFinishedSetup>
+        <div class="user w-full h-full">
+            <div class="user-photo-container">
+                <app-picture-container
+                    [canDelete]="photo !== null"
+                    [canModify]="true"
+                    [requestInProgress]="pictureRequestIsInProgres"
+                    (onDeleteFile)="onDeleteFile()"
+                    (onFileSelected)="onFileSelected($event)"
+                    [pictureUrl]="photo ?? 'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg'"
+                >
+                </app-picture-container>
+            </div>
+            <div class="user-info">
+                <div class="user-info-header">
+                    <span class="user-fullname">
+                        {{ user.name | titlecase }} {{ user.surname | titlecase }}
+                    </span>
+
+                    <button mat-icon-button (click)='onChangeBtnWasClicked()'>
+                        <mat-icon>create</mat-icon>
+                    </button>
+                </div>
+                <div class="user-general-info">
+                    <div class="info-row">
+                        <span>Date of birth</span>
+                        <span *ngIf="user.birthday">{{ user.birthday | date:'longDate' }}</span>
+                    </div>
+                </div>
+    
+                <div class="user-description">
+                    <span>{{ user.description ?? '' }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

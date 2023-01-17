@@ -1,0 +1,34 @@
+<div class="country-select-container">
+    <div *ngIf='country; else countryIsNotSelected' class="country-selected" (click)='onCountrySelectionValueWasClicked()'>
+        <div class="flex items-center w-full">
+            <div class="county-flag-container h-full items-center justify-center">
+                <img class='country-flag' [src]="country.flag"/>
+            </div>
+            <span>{{ country.name | titlecase }}</span>
+        </div>
+    </div>
+    <ng-template #countryIsNotSelected>
+        <mat-form-field>
+            <input 
+                type="text"
+                aria-label="Country"
+                matInput
+                [matAutocomplete]="auto"
+                [formControl]='countryControl'
+                placeholder="Start typing..."
+            />
+    
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let country of filteredCountries | async" [value]="country.name">
+                    <div class="country-filter-option flex items-center w-full"
+                        (click)="onCountryWasChagned(country)">
+                        <div class="county-flag-container h-full items-center justify-center">
+                            <img class='country-flag' [src]="country.flag"/>
+                        </div>
+                        <span>{{ country.name | titlecase }}</span>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </ng-template>
+</div>

@@ -1,0 +1,140 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/comments",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/comments",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "ServiceName": "comment-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/comments/{commentId}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "ServiceName": "comment-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "ServiceName": "media-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/serias/{seriaNumber}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/serias/{seriaNumber}",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "ServiceName": "media-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/content",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/content",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ServiceName": "media-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/medias/{mediaId}/trailer",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/medias/{mediaId}/trailer",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "ServiceName": "media-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/participants",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/participants/{id}",
+      "UpstreamHttpMethod": [ "PUT", "GET", "DELETE" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/participants/{id}/picture",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/participants/{id}/picture",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/media-infos",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/media-infos/{id}",
+      "UpstreamHttpMethod": [ "DELETE", "GET", "PATCH" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/media-infos/{id}/picture",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/media-infos/{id}/picture",
+      "UpstreamHttpMethod": [ "POST", "GET", "DELETE" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/genres",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/genres",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/genres/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/genres/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "ServiceName": "media-info-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/auth",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ],
+      "ServiceName": "authentication-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/{action}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/auth/{action}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+      "ServiceName": "authentication-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/users/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "ServiceName": "user-service"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/users/{id}/{everything}",
+      "UpstreamHttpMethod": [ "POST", "DELETE", "GET" ],
+      "ServiceName": "user-service"
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Scheme": "http",
+      "Host": "localhost",
+      "Port": "8500",
+      "Type": "Consul",
+      "PollingInterval": 10000,
+      "ConfigurationKey": "Mynetflix\\gateway"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<div class="main-page-container w-full">
+    <div class="home-nav-bar-wrapper">
+        <mat-toolbar class="max-h-52 home-nav-bar flex items-center h-full w-full">
+            <div class="flex justify-center items-center">
+                <div *ngIf="accountInfo.role === 'Moderator'" class="actions-menu">
+                    <button mat-icon-button [matMenuTriggerFor]="actionsMenu" aria-label="Actions menu">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                    
+                    <mat-menu #actionsMenu="matMenu">
+                        <button mat-menu-item [matMenuTriggerFor]="media">Media</button>
+                        <button mat-menu-item [matMenuTriggerFor]="participant">Participant</button>
+                        <button mat-menu-item [matMenuTriggerFor]="genre">Genre</button>
+                    </mat-menu>
+
+                    <mat-menu #media="matMenu">
+                        <button mat-menu-item (click)='onCreateMediaMenuItemWasClicked()'>
+                            <mat-icon>create</mat-icon>
+                            <span>Create</span>
+                        </button>
+                    </mat-menu>
+                    
+                    <mat-menu #participant="matMenu">
+                        <button mat-menu-item (click)='onCreateParticipantMenuItemWasClicked()'>
+                            <mat-icon>create</mat-icon>
+                            <span>Create</span>
+                        </button>
+                        <button mat-menu-item (click)='onSearchParticipantMenuItemWasClicked()'>
+                            <mat-icon>search</mat-icon>
+                            <span>Search</span>
+                        </button>
+                    </mat-menu>
+
+                    <mat-menu #genre="matMenu">
+                        <app-genre-manipulation-list [canDeleteGenres]="true" [canCreateGenres]="true">
+                        </app-genre-manipulation-list>
+                    </mat-menu>
+                </div>
+                <a class="nav-bar-logo" routerLink="/">MY NETFLIX</a>
+            </div>
+            <span class="nav-bar-spacer"></span>
+            <div class="nav-bar-icons-container flex items-center justify-center">
+                <div class="name-filter-container flex items-center justify-center h-full">
+                    <input type="text"
+                        aria-label="Name"
+                        matInput
+                        [formControl]="searchByNameControl">
+                    <button mat-icon-button (click)="onSearchBtnWasClicked()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="account-menu-btn">
+                    <mat-icon>account_circle</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <div class="menu-content" *ngIf="accountInfo">
+                        <button mat-menu-item routerLink="/user">
+                            <mat-icon>person</mat-icon>
+                            <span>{{ getUserAccountMenuLabel() | titlecase }}</span>
+                        </button>
+                        <button mat-menu-item (click)="onLogoutBtnWasClicked()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span>Log out</span>
+                        </button>
+                    </div>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+    </div>
+    <router-outlet></router-outlet>
+</div>

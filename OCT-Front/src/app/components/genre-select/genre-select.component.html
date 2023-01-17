@@ -1,0 +1,20 @@
+<div class="genre-select-container">
+    <mat-form-field>
+        <input 
+            type="text"
+            aria-label="Genre"
+            matInput
+            [matAutocomplete]="auto"
+            [formControl]='genreControl'
+            placeholder="Start typing..."
+        />
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre.name | titlecase">
+            <div class="genre-filter-option flex items-center w-full"
+                (click)="onGenreWasClicked(genre)">
+                <span>{{ genre.name | titlecase }}</span>
+            </div>
+        </mat-option>
+    </mat-autocomplete>
+</div>

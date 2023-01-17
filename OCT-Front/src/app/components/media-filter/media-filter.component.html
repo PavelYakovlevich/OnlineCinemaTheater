@@ -1,0 +1,48 @@
+<div class="media-filters-bar">
+    <mat-expansion-panel class="filter-criteria-container">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Genres
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="genres-container w-full">
+            <ul class="w-full">
+                <li *ngFor="let genre of genres" 
+                    class="genre-container w-full">
+                    <a (click)="onGenreWasClicked(genre)" class="genre-label w-full">
+                        {{ genre.name | titlecase }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="filter-criteria-container">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Country
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="country-container w-full">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Country</mat-label>
+                <input type="text"
+                       aria-label="Country"
+                       matInput
+                       [matAutocomplete]="auto"
+                       [formControl]="countryControl">
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let country of filteredCountries | async">
+                    <div class="country-filter-option flex items-center w-full"
+                        (click)="onCountryWasChagned(country)">
+                        <div class="county-flag-container h-full items-center justify-center">
+                            <img class='country-flag' [src]="country.flag"/>
+                        </div>
+                        <span>{{ country.name | titlecase }}</span>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+    </mat-expansion-panel>
+</div>

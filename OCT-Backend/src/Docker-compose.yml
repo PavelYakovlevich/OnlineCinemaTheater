@@ -1,0 +1,180 @@
+# docker-compose.yml
+
+version: '3.3'    
+services:
+  notification-service:
+    container_name: "notification-service"
+    build:
+      context: ./
+      dockerfile: ./Services/NotificationService/Dockerfile
+    image: mynetflix/notification_service
+    ports:
+      - "5220:80"
+      - "7243:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - rabbitmq
+  
+  authentication-service:
+    container_name: "authentication-service"
+    build:
+      context: ./
+      dockerfile: ./Services/AuthenticationService/Dockerfile
+    image: mynetflix/authentication_service
+    ports:
+      - "5236:80"
+      - "7236:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - rabbitmq
+      - mssqlserver
+      - consul
+
+  user-service:
+    container_name: "user-service"
+    build:
+      context: ./
+      dockerfile: ./Services/UserService/Dockerfile
+    image: mynetflix/user_service
+    ports:
+      - "5014:80"
+      - "7014:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - rabbitmq
+      - mssqlserver
+      - consul
+      - azurite
+
+  media-info-service:
+    container_name: "media-info-service"
+    build:
+      context: ./
+      dockerfile: ./Services/MediaInfoService/Dockerfile
+    image: mynetflix/media-info-service
+    ports:
+      - "5080:80"
+      - "7080:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - postgres
+      - consul
+      - azurite
+
+  media-service:
+    container_name: "media-service"
+    build:
+      context: ./
+      dockerfile: ./Services/MediaService/Dockerfile
+    image: mynetflix/media-service
+    ports:
+      - "5215:80"
+      - "7215:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - postgres
+      - consul
+      - azurite
+      - mssqlserver
+      - media-info-service
+
+  comment-service:
+    container_name: "comment-service"
+    build:
+      context: ./
+      dockerfile: ./Services/CommentService/Dockerfile
+    image: mynetflix/comment-service
+    ports:
+      - "5125:80"
+      - "7125:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - mongodb
+      - consul
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=superuser
+      - MONGO_INITDB_ROOT_PASSWORD=superuser
+
+  gateway:
+    container_name: "gateway"
+    build:
+      context: .
+      dockerfile: ./Gateways/Gateway/Dockerfile
+    image: mynetflix/gateway
+    ports:
+      - "5035:80"
+      - "7035:443"
+    networks:
+      - mynetflix_internal
+    depends_on:
+      - consul
+
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: masstransit/rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+        - '5672:5672'
+        - '15672:15672'
+    networks:
+      - mynetflix_internal
+
+  mssqlserver:
+    container_name: "mssqlserver"
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Asdf2000@"
+    ports:
+      - '1433:1433'
+    volumes:
+      -  mynetflix-db:/var/lib/mssql/data/
+    networks:
+      - mynetflix_internal
+
+  consul:
+    container_name: "consul"
+    image: consul
+    command: "agent -server -data-dir /tmp/consul -config-dir /consul/config -bootstrap-expect 1 -ui -client 0.0.0.0"
+    ports:
+      - "8500:8500"
+    networks:
+      - mynetflix_internal
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: "azurite"
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002" 
+    networks:
+      - mynetflix_internal
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: superuser
+    networks:
+      - mynetflix_internal
+
+networks:
+  mynetflix_internal:
+    driver: bridge
+
+volumes:
+  mynetflix-db: null

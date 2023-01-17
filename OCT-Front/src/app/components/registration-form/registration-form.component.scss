@@ -1,0 +1,49 @@
+.auth-form-page{
+    background-image: url("../../../assets/background_camera.jpg");
+    background-size: cover;
+}
+
+input::-ms-clear, input::-ms-reveal {
+    display: none;
+}
+
+.mat-card {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+.auth-form-container {
+    padding: 50px;
+    height: 650px;
+}
+
+
+.auth-form {
+    width: 550px;
+    padding: 20px;
+}
+
+.reg-btn.mat-button-disabled {
+    font-size: medium;
+    background-color: #e5091488 !important;
+    color: white !important;
+}
+
+.reg-btn {
+    font-size: medium;
+    background-color: #e50914 !important;
+    color: white !important;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.link-text {
+    color: #0071eb
+}
+
+.link-text:hover {
+    color: #0071eb;
+    text-decoration: underline;
+}

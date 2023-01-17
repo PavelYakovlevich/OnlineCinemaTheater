@@ -1,0 +1,27 @@
+.county-flag-container {
+    margin-right: 10px;
+}
+
+.country-filter-option  {
+    .mat-option-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .country-flag {
+        height: 20px;
+        width: 30px;
+    }
+}
+
+.country-selected {
+    color: white;
+    background-color: #8c8c8c;
+    padding: 5px;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #b1b1b1;
+    }
+}

@@ -1,0 +1,38 @@
+<div class="seach-participant-container">
+    <div class="w-100 flex justify-end items-center">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-form-field class="participant-search-input">
+        <input 
+            type="text"
+            aria-label="Full name"
+            matInput
+            [matAutocomplete]="auto"
+            [formControl]='fullNameControl'
+            placeholder="Start typing..."
+            class="w-100"
+        />
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let participant of participants" [value]="getFullName(participant) | titlecase">
+            <div class="filter-option flex items-center w-full"
+                (click)="onParticipantWasClicked(participant)">
+                <div class="participant-picture">
+                    <img *ngIf='participantsPictures[participant.id]; else participantImageWasNotFound' 
+                        [src]="participantsPictures[participant.id]"
+                        class="person-image-circle"/>
+                    <ng-template #participantImageWasNotFound>
+                        <mat-icon class="person-image-circle h-full">account_circle</mat-icon>
+                    </ng-template>
+                </div>
+                <div class="participant-info">
+                    <span>{{ getFullName(participant) | titlecase }}</span>
+                </div>
+            </div>
+        </mat-option>
+    </mat-autocomplete>
+
+    <mat-progress-bar *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar>
+</div>

@@ -1,0 +1,36 @@
+a {
+    &:hover {
+        text-decoration: none;
+        cursor: auto;
+    }
+}
+
+.participants-list-header {
+    margin-bottom: 40px;
+    font-style: bold;
+}
+
+.participants-list {
+    .info-row {
+        padding: 10px 0 10px 0;
+        width: 100%;
+    }
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    border-bottom: 1px solid #424242;
+}
+
+.participant-container, .participant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.participant-link {
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

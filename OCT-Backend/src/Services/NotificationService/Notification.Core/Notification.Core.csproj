@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Stubble.Core" Version="1.9.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\..\..\Shared\Enums\Enums.csproj" />
+	  <ProjectReference Include="..\..\..\Shared\Messages\Messages.csproj" />
+	  <ProjectReference Include="..\Notification.Contracts\Notification.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\ChangePasswordMail.Mustache">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\EmailConfirmationMail.Mustache">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

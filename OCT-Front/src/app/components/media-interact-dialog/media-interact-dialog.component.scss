@@ -1,0 +1,52 @@
+.media-name-title {
+    width: 100%;
+}
+
+.about-media {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-form-field {
+    .mat-input-element, .mat-datepicker-toggle {
+        color: white !important;
+    }
+    .mat-form-field-label {
+        color: white;
+    }
+    .mat-form-field-underline, .mat-input-underline {
+        background-color: white !important;
+        color: white !important;
+    }
+    .mat-form-field-ripple {
+        background-color: white !important;
+    }
+    .mat-form-field-required-marker {
+        color: white !important;
+    }
+}
+
+.mat-datepicker-toggle-default-icon {
+    height: 20px;
+    width: 100px;
+}
+
+.media-interact-dialog-container {
+    min-width: 480px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    *:not(.mat-icon, .mat-error) {
+        font-size: medium !important;
+    }
+}
+
+.actions-btns-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

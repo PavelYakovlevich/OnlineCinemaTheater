@@ -1,0 +1,89 @@
+<div class="comment-box">
+    <div *ngIf="userCanMakeActions(comment)" class="comment-actions-container">
+        <app-error-box
+            *ngIf='lastError' 
+            [error]="lastError"
+            (onClose)="lastError = null"
+        ></app-error-box>
+        <div class="comment-actions-btns-container">
+            <button 
+                *ngIf="commentCanBeDeleted()" 
+                mat-icon-button 
+                class="delete-comment-btn"
+                (click)='onDeleteIconWasClicked()'
+                [disabled]='requestInProgress'
+            >
+                <mat-icon class="d">delete</mat-icon>
+            </button>
+
+            <button 
+                *ngIf='commentCanBeModified()'
+                mat-icon-button 
+                class="modify-comment-btn"
+                (click)='onChangeBtnWasClicked()'
+                [disabled]='requestInProgress'
+            >
+                <mat-icon>create</mat-icon>
+            </button>
+            <button
+                *ngIf="commentCanBeSaved()"
+                mat-button 
+                class="cancel-btn"
+                [disabled]='requestInProgress'
+                (click)='onCancelBtnWasClicked()'
+            >
+                Cancel
+            </button>
+            <button
+                *ngIf="commentCanBeSaved()"
+                mat-button 
+                class="save-comment-btn"
+                [disabled]='requestInProgress || commentTextArea.invalid || !commentTextArea.dirty'
+                (click)='onSaveCommentBtnWasClicked()'
+            >
+                Save
+            </button>
+            <mat-expansion-panel *ngIf="deleteIconWasClicked" #deleteExpansionPanel expanded hideToggle>
+                <p class="caution-header">Are you sure?</p>
+        
+                <mat-action-row>
+                    <button mat-button class="delete-comment-btn" (click)="onCommentDeleteBtnWasClicked()">
+                        Delete
+                    </button>
+                    <button mat-button color="primary" (click)="onDeleteIconWasClicked(deleteExpansionPanel)">
+                        Cancel
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </div>
+    </div>
+    <div class="request-in-progress-spinner-container">
+        <mat-spinner *ngIf="requestInProgress" class="request-in-progress-spinner"></mat-spinner>
+    </div>
+    <div class="comment-box-header">
+        <div class="user-info">
+            <img *ngIf="userPhoto; else photoWasNotLoaded"
+                [src]='userPhoto'
+                class="person-image-circle"/>
+            <ng-template #photoWasNotLoaded>
+                <mat-icon class="person-image-circle">account_circle</mat-icon>
+            </ng-template>
+            <span class="user-name"> {{ getUserName() | titlecase }}</span>
+        </div>
+        <span>{{ comment.issueDate | date:'longDate' }}</span>
+    </div>
+    <div class="comment-box-content">
+        <span 
+            *ngIf='!isChanging; else modifyContent'
+            class="comment-text"
+        >
+            {{ comment.text }}
+        </span>
+        <ng-template #modifyContent>
+            <mat-form-field class="comment-text" appearance="fill">
+                <textarea matInput [formControl]="commentTextArea"></textarea>
+            </mat-form-field>
+            <mat-error *ngIf="commentTextArea.invalid">{{ getErrorMessage(commentTextArea) }}</mat-error>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="participants-list-container">
+    <div *ngIf="modifiable">
+        <mat-form-field>
+            <input 
+                type="text"
+                aria-label="Participant"
+                matInput
+                [matAutocomplete]="auto"
+                [formControl]='participantControl'
+                placeholder="Start typing..."
+            />
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let participant of selectableParticipants" [value]="getFullName(participant) | titlecase">
+                <div class="participant-filter-option flex items-center w-full"
+                    (click)='onParticipantOptionWasClicked(participant)'>
+                    <span>{{ getFullName(participant) | titlecase }}</span>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
+    </div>
+
+    <span class="participants-list-header">Producers</span>
+    <div class="participants-list">
+        <div *ngIf="producers.length === 0" class="info-row">
+            <span>Not specified yet</span>
+        </div>
+        <div *ngFor="let producer of producers" class="info-row">
+            <div
+                (click)='onParticipantWasClicked(producer)'
+                [ngClass]="{ 'participant-container': true, 'participant-link': !linksDisabled }"
+            >
+                <img 
+                *ngIf="participantsPictures[producer.id]; else pictureWasNotFound"
+                [src]="participantsPictures[producer.id]"
+                class="person-image-circle"/>
+                <ng-template #pictureWasNotFound>
+                    <mat-icon class="person-image-circle h-full">account_circle</mat-icon>
+                </ng-template>
+
+                <a>{{ getFullName(producer) | titlecase }}</a>
+            </div>
+
+            <button 
+                *ngIf='modifiable && producers.length > 1'
+                mat-icon-button 
+                (click)='onDeleteParticipantBtnWasClicked(producer)'>
+                <mat-icon class="delete-icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <span class="participants-list-header">Actors</span>
+    <div class="participants-list">
+        <div *ngIf="actors.length === 0" class="info-row">
+            <span>Not specified yet</span>
+        </div>
+        <div *ngFor="let actor of actors" class="info-row">
+            <div 
+                (click)='onParticipantWasClicked(actor)'
+                [ngClass]="{ 'participant-container': true, 'participant-link': !linksDisabled }">
+                <img 
+                    *ngIf="participantsPictures[actor.id]; else pictureWasNotFound"
+                    [src]="participantsPictures[actor.id]"
+                    class="person-image-circle"/>
+                <ng-template #pictureWasNotFound>
+                    <mat-icon class="person-image-circle h-full">account_circle</mat-icon>
+                </ng-template>
+
+                <a>{{ getFullName(actor) | titlecase }}</a>
+            </div>
+            <button
+                *ngIf='modifiable && actors.length > 1'
+                mat-icon-button 
+                (click)='onDeleteParticipantBtnWasClicked(actor)'>
+                <mat-icon class="delete-icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

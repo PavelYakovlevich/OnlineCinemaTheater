@@ -1,0 +1,64 @@
+.genres-container {
+    display: flex;
+    flex-direction: column;
+
+    .genre-container {
+        padding: 5px;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.filter-criteria-container {
+    border-bottom: 1px solid white;
+    margin-bottom: 20px;
+}
+
+.mat-expansion-panel
+.mat-expansion-panel-header,
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover,
+.media-filters-bar .mat-expansion-panel {
+    color: white;
+    background-color: #424242 !important;
+}
+
+.mat-expansion-panel {
+    overflow: inherit !important;
+}
+
+.mat-expansion-panel-body {
+    overflow: hidden;
+}
+
+.media-filters-bar {
+    position: sticky;
+    top: 5;
+    z-index: 1;
+}
+
+.county-flag-container {
+    margin-right: 10px;
+}
+
+.country-filter-option  {
+    .mat-option-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .country-flag {
+        height: 20px;
+        width: 30px;
+    }
+}
+
+.media-filters-bar .mat-expansion-panel {
+    background: rgba(141, 141, 141, 0);
+    border-radius: 0px;
+}

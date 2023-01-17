@@ -1,0 +1,47 @@
+<div class="users-comments-container">
+    <h1 class="comments-container-header">Comments</h1>
+
+    <app-error-box
+        *ngIf='lastError' 
+        [error]="lastError"
+        (onClose)="lastError = null">
+    </app-error-box>
+
+    <div *ngIf="!userFinishedSetup()" class="caution-box-container">
+        <div class="caution-box">
+            <span>You must finish your account setup to leave comments.</span> <a class="app-link" routerLink="/user"> Setup account now</a>
+        </div>
+    </div>
+
+    <mat-error *ngIf="commentTextControl.invalid && !commentTextControl.untouched">{{ getErrorMessage(commentTextControl) }}</mat-error>
+
+    <div *ngIf='account.role === "User" && userFinishedSetup()' class="create-comment-container">
+        <div class='create-comment-input'>
+            <input [formControl]='commentTextControl' matInput />
+        </div>
+        <button 
+            mat-icon-button
+            class="create-comment-btn"
+            (click)='onCreateCommentBtnClicked()'
+        >
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+
+    <div *ngFor="let comment of comments" 
+        class="user-comment">
+        <app-comment-box 
+            [comment]="comment"
+            (onCommentWasDeleted)="onCommentWasDeleted($event)"
+        ></app-comment-box>
+    </div>
+
+    <div class="load-more-container">
+        <mat-spinner *ngIf="commentsAreLoading"></mat-spinner>
+        <a 
+            class="load-more-link"
+            *ngIf='!commentsAreLoading && canLoadComments' (click)="getComments()">
+            Load more
+        </a>
+    </div>
+</div>

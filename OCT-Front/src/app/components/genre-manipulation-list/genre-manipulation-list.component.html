@@ -1,0 +1,40 @@
+<div class="genre-manipulation-list-container">
+    <mat-progress-bar class='w-100 h-100' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar>
+
+    <div class="create-genre-input-container" (click)='$event.stopPropagation()'>
+        <div class="create-genre-input">
+            <mat-form-field class="w-full">
+                <mat-label>New genre name</mat-label>
+                <input type="text"
+                       aria-label="Genre"
+                       matInput
+                       [formControl]="genreControl">
+                <mat-error *ngIf='genreControl.invalid'>{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <button *ngIf='canCreateGenres' 
+            [disabled]="genreControl.invalid"
+            (click)='onCreateGenreBtnWasClicked()'
+            mat-button 
+            class="action-btn">
+            Create
+        </button>
+    </div>
+
+
+    <div class="genres-container w-full">
+        <ul class="w-full">
+            <li *ngFor="let genre of genres" 
+                class="w-full flex space-between items-center">
+                <span class="genre-label w-full">
+                    {{ genre.name | titlecase }}
+                </span>
+                <button *ngIf='canDeleteGenres' mat-icon-button
+                    (click)='onDeleteBtnWasClicked(genre)'>
+                    <mat-icon class='delete-icon'>close</mat-icon>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

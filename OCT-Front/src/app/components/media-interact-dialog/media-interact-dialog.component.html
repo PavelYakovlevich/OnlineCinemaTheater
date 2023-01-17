@@ -1,0 +1,103 @@
+<div class="media-interact-dialog-container">
+    <form [formGroup]="mediaDialogFormGroup">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="General info">
+                <mat-form-field class="media-name-title">
+                    <mat-label>Media name</mat-label>
+                    <input matInput formControlName='name' class="w-100"/>
+                    <mat-error *ngIf="controlIsInvalid('name')">{{ getErrorMessage('name') }}</mat-error>
+                </mat-form-field>
+
+                <div class="about-media">
+                    <div class="info-row">
+                        <span>Issue date</span> 
+                        <mat-form-field>
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <input matInput [matDatepicker]="picker" formControlName='issueDate'>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="controlIsInvalid('issueDate')">{{ getErrorMessage('issueDate') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Country</span> 
+                        <app-country-select 
+                            (onCountryWasSelected)="onCountryWasSelected($event)"
+                            [country]="media.country"
+                        ></app-country-select>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Budget</span>
+                        <mat-form-field>
+                            <input matInput formControlName='budget'/>
+                            <mat-error *ngIf="controlIsInvalid('budget')">{{ getErrorMessage('budget') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Aid</span>
+                        <mat-form-field>
+                            <input matInput formControlName='aid'/>
+                            <mat-error *ngIf="controlIsInvalid('aid')">{{ getErrorMessage('aid') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span>Age rating</span>
+                        <mat-form-field>
+                            <mat-select formControlName='ageRating' [value]="media.ageRating">
+                                <mat-option 
+                                    *ngFor="let ageRating of getAgeRatings()" 
+                                    [value]="ageRating"
+                                >
+                                    <span>{{ getAgeRatingString(ageRating) }}</span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Genres">
+                <app-genre-select
+                    (onGenreWasSelected)="onGenreWasSelected($event)"   
+                ></app-genre-select>
+                <div *ngFor="let genre of media.genres" class="info-row">
+                    <span>
+                        {{ genre.name | titlecase }}
+                    </span>
+                    <button 
+                        mat-icon-button 
+                        (click)='onDeleteGenreBtnWasClicked(genre)'
+                    >
+                        <mat-icon class="delete-icon">delete</mat-icon>
+                    </button>
+                </div>
+            </mat-tab>
+            <mat-tab label="Participants">
+                <app-participants-list class="media-participants"
+                    (onParticipantWasAdded)="onParticipantWasAdded($event)"
+                    (onParticipantWasDeleted)="onParticipantWasDeleted($event)"
+                    [participants]='media.participants'
+                    [modifiable]="true">
+                </app-participants-list>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+    <div mat-dialog-actions>
+        <mat-progress-bar class='mb-5' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar>
+        <div class="actions-btns-container">
+            <button
+                [disabled]="!allControlsAreValid() || requestInProgress"
+                (click)='onSaveBtnWasClicked()'
+                mat-button class="action-btn">
+                {{ isOpenedInModificationMode ? 'Save' : 'Create' }}
+            </button>
+            <button mat-button mat-dialog-close class="close-btn"
+                [disabled]="requestInProgress">
+                Close
+            </button>
+        </div>
+    </div>
+</div>

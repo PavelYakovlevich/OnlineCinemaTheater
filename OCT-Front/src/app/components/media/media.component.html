@@ -1,0 +1,146 @@
+<div class="media-page-container w-full h-full flex items-center justify-center">
+    <div class="media-page w-full">
+        <div class="media-info flex w-full">
+            <div class="media-page-col w-2/6">
+                <app-picture-container
+                    class="media-picture-container"
+                    (onFileSelected)="onMediaPictureFileWasSelected($event)"
+                    (onDeleteFile)="onDeleteMediaPictureBtnWasClicked()"
+                    [canDelete]="picture"
+                    [canModify]="account.role === 'Moderator'"
+                    [requestInProgress]="mediaPictureRequestInProgress"
+                    [pictureUrl]="picture ?? 'https://media.istockphoto.com/vectors/error-page-or-file-not-found-icon-vector-id924949200?k=20&m=924949200&s=170667a&w=0&h=-g01ME1udkojlHCZeoa1UnMkWZZppdIFHEKk6wMvxrs='"
+                >
+                </app-picture-container>
+            </div>
+            <div class="media-page-col w-4/6">
+                <div class="media-header">
+                    <h1 class="media-name">
+                        {{ media.name | titlecase }} ({{ media.issueDate | date:'yyyy' }}) 
+                    </h1>
+
+                    <div *ngIf='canModifyMedia()' class="media-actions">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)='openChangeMediaDialog()'>
+                                <mat-icon>create</mat-icon>
+                                <span>Modify</span>
+                            </button>
+                            <button mat-menu-item (click)='onDeleteMediaMenuItemWasClicked()'>
+                                <mat-icon class='delete-icon'>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+               
+                <div class="about-media">
+                    <div class="media-general-info">
+                        <div class="info-row">
+                            <span>Issue year </span> 
+                            <span *ngIf="media.issueDate else issueDateNotSpecified">{{ media.issueDate | date:'yyyy' }}</span>
+    
+                            <ng-template #issueDateNotSpecified>
+                                <span>Not specified</span>
+                            </ng-template>
+                        </div>
+                        <div class="info-row">
+                            <span>Country</span>
+                            <span *ngIf="media.country; else countryNotSpecified" class="flex items-center justify-center">
+                                {{ countryInfo?.name }} 
+                                <div class="country-flag flex justify-center items-center">
+                                    <img class="w-full h-full" [src]="countryInfo?.flag">
+                                </div>
+                            </span>
+    
+                            <ng-template #countryNotSpecified>
+                                <span>Not specified</span>
+                            </ng-template>
+                        </div>
+                        <div class="info-row">
+                            <span>Budget</span>
+                            <span *ngIf="media.budget; else budgetNotSpecified" class="flex items-center justify-center">
+                                {{ media.budget | currency }}
+                            </span>
+    
+                            <ng-template #budgetNotSpecified>
+                                <span>Not specified</span>
+                            </ng-template>
+                        </div>
+                        <div class="info-row">
+                            <span>Aid</span>
+                            <span *ngIf="media.aid; else aidNotSpecified" class="flex items-center justify-center">
+                                {{ media.aid | currency }}
+                            </span>
+    
+                            <ng-template #aidNotSpecified>
+                                <span>Not specified</span>
+                            </ng-template>
+                        </div>
+                        <div class="info-row">
+                            <span>Genres</span>
+                            <div class="genres-list">
+                                <span *ngFor="let genre of media.genres; index as i">
+                                    {{ genre.name | lowercase }}<span *ngIf="i !== media.genres.length - 1">,</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <span>Age rating</span>
+                            <div class="age-rating">
+                                <span>{{ getAgeRating() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <app-participants-list class='media-participants'
+                        [participants]='this.media.participants'
+                        [linksDisabled]='false'
+                    ></app-participants-list>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class='horizontal-page-divider'/>
+
+        <div class="media-watch-container">
+            <mat-tab-group animationDuration="500ms" mat-align-tabs="center">
+                <mat-tab label="Trailer">
+                    <video class="media-trailer" 
+                    controls
+                    [poster]="trailer ? 'https://ustore.bz/posters/d3894e13ac7867f0ea0db534fb9762fd.jpg' : 
+                                        'https://fightthenewdrug.org/wp-content/uploads/video/screenshot.png'">
+                        <source *ngIf='trailer' [src]="trailerUrl" [type]="trailer.type">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div *ngIf='canModifyMedia()' class="trailer-actions-btns">
+                        <button mat-button class="update-btn trailer-action-btn" (click)="onUploadMediaItemBtnWasClicked('uploadMediaTrailer')" >
+                            <mat-icon>add_to_queue</mat-icon>
+                            Upload
+                        </button>
+                        <button *ngIf='trailer' mat-button class="action-btn trailer-action-btn" (click)="onDeleteMediaTrailerBtnWasClicked()">
+                            <mat-icon>delete</mat-icon>
+                            Delete
+                        </button>
+                        <input id='uploadMediaTrailer' type="file" style="display:none" (change)="onMediaTrailerFileWasSelected($event)">
+                    </div>
+                </mat-tab>
+                <mat-tab label="Media">
+                    <video class="media-trailer" 
+                    controls
+                    [poster]="trailer ? 'https://ustore.bz/posters/d3894e13ac7867f0ea0db534fb9762fd.jpg' : 
+                                        'https://fightthenewdrug.org/wp-content/uploads/video/screenshot.png'">
+                        <source *ngIf='trailer' [src]="trailerUrl" [type]="trailer.type">
+                        Your browser does not support the video tag.
+                    </video>
+                </mat-tab>
+            </mat-tab-group>
+
+            <app-comments-list
+                [media]="media"
+            ></app-comments-list>
+        </div>
+    </div>
+</div>

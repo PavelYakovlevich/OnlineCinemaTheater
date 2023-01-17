@@ -1,0 +1,31 @@
+<div class="background-image-page">
+    <div class="email-verified-fogging w-full h-full">
+        <div class="page-container">
+            <mat-spinner *ngIf="requestInProgress; else requestFinished"></mat-spinner>
+
+            <ng-template #requestFinished>
+                <div *ngIf='lastError; else accountVerified' class="error-box">
+                    <app-error-box [error]="lastError"></app-error-box>
+                </div>
+                <ng-template #accountVerified>
+                    <div class="page-header-container">
+                        <div class="page-header">
+                            <span>Account was verified</span>
+                        </div>
+                        <mat-icon class="account-verified-icon">verified_user</mat-icon>
+                    </div>
+        
+                    <div class="start-watch-btn">
+                        <button 
+                          mat-flat-button 
+                          class="action-btn"
+                          routerLink="/"
+                        >
+                          Start watching
+                        </button>
+                    </div>
+                </ng-template>
+            </ng-template>
+        </div>
+    </div>
+</div>
